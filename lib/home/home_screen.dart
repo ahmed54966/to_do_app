@@ -10,7 +10,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(
-        title: Text("To Do List"),
+        title: Text("To Do List",
+        style: Theme.of(context).textTheme.titleLarge,),
       ) ,);
   }
 }

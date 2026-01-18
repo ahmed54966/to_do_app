@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/settings/settings_tab.dart';
+import 'package:to_do_app/task_list/add_task_bottom_sheet.dart';
+import 'package:to_do_app/task_list/task_list_tab.dart';
 
 
 // ignore: must_be_immutable
@@ -46,12 +49,22 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(onPressed:(){
-
+        addTaskBottomSheet();
       },
       child: Icon(Icons.add, size: 35,),
     ),
       floatingActionButtonLocation:FloatingActionButtonLocation.centerDocked,
 
-      );
+    body:
+        tabs[selectedIndex]
+    );
+      
+  }
+  List <Widget> tabs =[TaskList(),SettingsTab()];
+  
+  void addTaskBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context)=>AddTaskBottomSheet());
   }
 }

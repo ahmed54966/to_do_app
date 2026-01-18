@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/app_colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 // ignore: must_be_immutable
 class AddTaskBottomSheet extends StatefulWidget {
@@ -20,7 +21,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
       margin: EdgeInsets.all(12),
       child: Column(
         children: [
-          Text("Add new Task",
+          Text("Add new Task".tr(),
           style: Theme.of(context).textTheme.titleMedium,
           ),
 
@@ -32,12 +33,12 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               TextFormField(
                 validator: (text){
                   if(text ==null || text.isEmpty){
-                    return"Please Enter Task Title";
+                    return"Please Enter Task Title".tr();
                   }
                   return null ;
                 } ,
                 decoration: InputDecoration(
-                  hintText: "Enter Task Title",
+                  hintText: "Enter Task Title".tr(),
                 ),
               ),
 
@@ -46,18 +47,18 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               TextFormField(
                 validator: (text){
                   if(text ==null || text.isEmpty){
-                    return"Please Enter Task Description";
+                    return"Please Enter Task Description".tr();
                   }
                   return null ;
                 } ,
                 decoration: InputDecoration(
-                  hintText: "Enter Task Description",
+                  hintText: "Enter Task Description".tr(),
                 ),
                 maxLines: 4,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("Select Date",
+                child: Text("Select Date".tr(),
                 textAlign: TextAlign.start,
                 style: Theme.of(context).textTheme.bodyLarge,),
               ),
@@ -80,7 +81,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               backgroundColor: AppColors.primaryColor,
               foregroundColor: AppColors.whiteColor
               ),
-              child: Text("Add",
+              child: Text("Add".tr(),
               style:  Theme.of(context).textTheme.titleLarge,
               )
               )

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/app_colors.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class TaskListItem extends StatelessWidget {
   const TaskListItem({super.key});
 
@@ -28,11 +28,11 @@ class TaskListItem extends StatelessWidget {
           Expanded(child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text("Title",
+              Text("Title".tr(),
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 color: AppColors.primaryColor,
                 ),),
-              Text("Description",
+              Text("Description".tr(),
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: AppColors.blackLightColor,
                 fontWeight: FontWeight.w500))

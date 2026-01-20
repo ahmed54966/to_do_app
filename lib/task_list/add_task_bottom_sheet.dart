@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:to_do_app/app_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:to_do_app/firebase_utiles.dart';
+import 'package:to_do_app/model/task.dart';
+import 'package:to_do_app/providers/provider.dart';
 
 // ignore: must_be_immutable
 class AddTaskBottomSheet extends StatefulWidget {
@@ -13,10 +17,13 @@ class AddTaskBottomSheet extends StatefulWidget {
 class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   var formKey = GlobalKey<FormState>();
   var selectedDate = DateTime.now();
-
+  String title = "";
+  String description = "";
+  late ListProviders listProviders;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    listProviders = Provider.of<ListProviders>(context);
     return Container(
       margin: EdgeInsets.all(12),
       child: Column(
@@ -37,6 +44,9 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   }
                   return null ;
                 } ,
+                onChanged: (text){
+                  title = text;
+                },
                 decoration: InputDecoration(
                   hintText: "Enter Task Title".tr(),
                 ),
@@ -51,6 +61,9 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   }
                   return null ;
                 } ,
+                onChanged: (text) {
+                  description = text ;
+                },
                 decoration: InputDecoration(
                   hintText: "Enter Task Description".tr(),
                 ),
@@ -95,7 +108,13 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
 
   void addTask() {
     if (formKey.currentState?.validate() == true){
-
+      Task task = Task(title: title, description: description, dateTime: selectedDate);
+      FirebaseUltiles.addTaskToFireStore(task).timeout(Duration(seconds: 1),
+      onTimeout: () {
+        print("task added sucessfully");
+        listProviders.getAllTasksFromFireStore();
+        Navigator.pop(context);
+      },);
     }
   }
 

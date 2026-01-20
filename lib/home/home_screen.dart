@@ -25,36 +25,41 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text("To Do List".tr(),
         style: Theme.of(context).textTheme.titleLarge,),
       ) ,
-
-      bottomNavigationBar:BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        notchMargin: 12,
-        child: BottomNavigationBar(
-          currentIndex: selectedIndex,
-          onTap: (index) {
-            selectedIndex = index ;
-            setState(() {
-              
-            });
-          },
-          items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: "Task List".tr()),
+      bottomNavigationBar: BottomNavigationBar(
         
-            BottomNavigationBarItem(
+        currentIndex: selectedIndex,
+        onTap: (index){
+          setState(() {
+            selectedIndex = index ;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+        icon: Icon(Icons.list),
+        label: "Task List".tr()),
+      
+      BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: "Settings".tr()),
-        ]
+            label: "settings".tr()),
+
+      
+      
+      
+          ]
         ),
-      ),
-      floatingActionButton: FloatingActionButton(onPressed:(){
+
+        floatingActionButton: FloatingActionButton(onPressed:(){
         addTaskBottomSheet();
+        
       },
+      
       child: Icon(Icons.add, size: 35,),
+      
     ),
       floatingActionButtonLocation:FloatingActionButtonLocation.centerDocked,
 
+
+      
     body:
         tabs[selectedIndex]
     );

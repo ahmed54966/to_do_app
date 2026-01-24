@@ -15,6 +15,23 @@
     "Please Enter Task Title" : "ادخل عنوان المهام من فضلك",
     "Enter Task Title" : "ادخل عنوان المهام",
     "Please Enter Task Description" : "ادخل وصف المهام من فضلك",
-    "Enter Task Description" : "ادخل وصف المهام"
+    "Enter Task Description" : "ادخل وصف المهام",
+    "delete" : "مسح",
+    "create_accout" : "انشاء حساب",
+    "user_name" : "اسم المستخدم",
+    "email" : "البريد الالكتروني",
+    "password" : "كلمة السر",
+    "confirm_password" : "تأكيد كلمة السر",
+    "create_account" : "انشئ الحساب",
+    "please enter user name ." : "ادخل اسم المسخدم من فضلك...",
+    "please enter Email ." : "ادخل البريد الالكتروني من فضلك...",
+    "plaease enter valid email." : "Please Enter valid Email",
+    "please enter password." : "ادخل كلمة المرور من فضلك...",
+    "password should be at least 6 chars." : "يجب ان تحتوي كلمة المرور على ستة ارقام",
+    "please enter confirm password ." : "اكد على كلمة المرور من فضلك...",
+    "confirm password does not match password." : "تأكيد كلمة المرور غير مطابق لكلمة المرور",
+    "login" : "تسجيل الدخول",
+    "welcome_back" :"مرحبا بك مره اخرى",
+    "or create account" : "انشاء حساب"
 
 }

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do_app/auth/login/login_screen.dart';
+import 'package:to_do_app/auth/register/register_screen.dart';
 import 'package:to_do_app/home/home_screen.dart';
 import 'package:to_do_app/my_theme_data.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -47,10 +49,13 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
 
-    initialRoute: '/',
+    initialRoute: '/loginScreen',
   routes: {
     // When navigating to the "/" route, build the FirstScreen widget.
-    '/': (context) => HomeScreen(),
+    '/RegisterScreen': (context) => RegisterScreen(),
+    '/homeScreen': (context) => HomeScreen(),
+    '/loginScreen': (context) => LoginScreen(),
+
   },
 
   debugShowCheckedModeBanner: false,

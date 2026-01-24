@@ -7,6 +7,10 @@ class MyThemeData {
     primaryColor: AppColors.primaryColor,
     scaffoldBackgroundColor: AppColors.backGroudLightColor,
     appBarTheme: AppBarTheme(
+      iconTheme: IconThemeData(
+    color:AppColors.whiteColor,
+    size: 25 
+  ),
       backgroundColor: AppColors.primaryColor,
       elevation: 0,),
 
@@ -39,6 +43,7 @@ class MyThemeData {
       )
     )
   ),
+  
 
   textTheme:TextTheme(
     titleLarge: GoogleFonts.poppins(

@@ -18,4 +18,9 @@ task.id = taskDocRef.id;
 return taskDocRef.set(task);
 }
 
+static Future<void> deleteTaskFromFireStore (Task task){
+  return getTsaksCollection().doc(task.id).delete();
 }
+
+}
+

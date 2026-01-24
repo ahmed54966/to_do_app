@@ -15,6 +15,23 @@
     "Please Enter Task Title" : "Please Enter Task Title",
     "Enter Task Title" : "Enter Task Title",
     "Please Enter Task Description" : "Please Enter Task Description",
-    "Enter Task Description" : "Enter Task Description"
+    "Enter Task Description" : "Enter Task Description",
+    "delete" : "Delete",
+    "create_accout" : "Create Account",
+    "user_name" : "User Name",
+    "email" : "Email",
+    "password" : "Password",
+    "confirm_password" : "Confirm Password",
+    "create_account" : "Create Account",
+    "please enter user name ." : "Please Enter User Name.",
+    "please enter Email ." : "Please Enter Email.",
+    "plaease enter valid email." : "Please Enter valid Email",
+    "please enter password." : "Please Enter password.",
+    "password should be at least 6 chars." : "password should be at least 6 chars.",
+    "please enter confirm password ." : "please enter confirm password.",
+    "confirm password does not match password." : "confirm password does not match password.",
+    "login" : "Login",
+    "welcome_back" : "Welcome Back",
+    "or create account" : "Or Create Account"
 
 }

@@ -8,6 +8,7 @@ import 'package:to_do_app/my_theme_data.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:to_do_app/providers/provider.dart';
+import 'package:to_do_app/providers/user_provider.dart';
 import 'firebase_options.dart';
 
 
@@ -17,7 +18,7 @@ WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await FirebaseFirestore.instance.disableNetwork();
+
   
   WidgetsFlutterBinding.ensureInitialized();
   
@@ -29,11 +30,17 @@ WidgetsFlutterBinding.ensureInitialized();
       path: 'assets/translations', 
       fallbackLocale: const Locale('en'), 
       startLocale: const Locale('ar'),    
-      child: ChangeNotifierProvider(
-        create: (context) => ListProviders(),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => ListProviders(),),
+            ChangeNotifierProvider(create: (context) => AuthUserProvider(),)
+        ],
         child: const MyApp()),
-    ),
-  );
+        )
+        
+    );
+  
 }
 
 class MyApp extends StatelessWidget {

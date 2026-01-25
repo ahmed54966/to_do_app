@@ -6,6 +6,7 @@ import 'package:to_do_app/app_colors.dart';
 import 'package:to_do_app/firebase_utiles.dart';
 import 'package:to_do_app/model/task.dart';
 import 'package:to_do_app/providers/provider.dart';
+import 'package:to_do_app/providers/user_provider.dart';
 // ignore: must_be_immutable
 class TaskListItem extends StatelessWidget {
   Task task ;
@@ -16,6 +17,7 @@ class TaskListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var listProviders = Provider.of<ListProviders>(context);
+    var authProvider = Provider.of<AuthUserProvider>(context);
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Container(
@@ -35,10 +37,14 @@ class TaskListItem extends StatelessWidget {
         SlidableAction(
           borderRadius: BorderRadius.circular(15),
           onPressed: (context){
-            FirebaseUltiles.deleteTaskFromFireStore(task).timeout(Duration(seconds: 1),
+            FirebaseUltiles.deleteTaskFromFireStore(task , authProvider.currentUser!.id!).then((Value){
+              print("task deleted sucessfully");
+              listProviders.getAllTasksFromFireStore(authProvider.currentUser!.id!);
+            })
+            .timeout(Duration(seconds: 1),
             onTimeout: (){
               print("task deleted sucessfully");
-              listProviders.getAllTasksFromFireStore();
+              listProviders.getAllTasksFromFireStore(authProvider.currentUser!.id!);
             });
           },
           backgroundColor:AppColors.redColor,

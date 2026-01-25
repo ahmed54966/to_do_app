@@ -37,7 +37,9 @@
     "register successfull" : "Register Successfull",
     "The account already exists for that email." : "The Account Already Exists for that Email.",
     "The password provided is too weak." : "The password provided is too Weak.",
-    "login successfull" : "Login Successfull"
+    "login successfull" : "Login Successfully",
+    "ok" : "Ok"
+    
 
 
 }

@@ -1,9 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:to_do_app/app_colors.dart';
 import 'package:to_do_app/auth/custom_text_form_field.dart';
 import 'package:to_do_app/dialog_utilies.dart';
+import 'package:to_do_app/firebase_utiles.dart';
+import 'package:to_do_app/model/my_user.dart';
+import 'package:to_do_app/providers/user_provider.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatefulWidget {
@@ -139,13 +143,22 @@ class _LoginScreenState extends State<LoginScreen> {
   );
 
   
+  var user = await FirebaseUltiles.readUserFromFireStore(credential.user?.uid??"");
+  if (user==null){
+    return;
+  }
+
+  ///authprovider
+  var authProvider = Provider.of<AuthUserProvider>(context,listen: false);
+  authProvider.updateUser(user);
+  
   DialogUtiles.hideDialog(context);
 
   DialogUtiles.showMessage(context: context , message: "login successfull".tr(),
-  title: 'title'.tr(),
-  posActionName: "ok",
+  title: 'Title'.tr(),
+  posActionName: "ok".tr(),
   posAction: (){
-      Navigator.pushNamed(context, '/homeScreen');}
+      Navigator.pushReplacementNamed(context, '/homeScreen');}
       );
 
   print(credential.user?.uid??"");
@@ -156,8 +169,8 @@ class _LoginScreenState extends State<LoginScreen> {
   DialogUtiles.hideDialog(context);
 
   DialogUtiles.showMessage(context: context , message: "The password provided is too weak.".tr(),
-  title: 'title'.tr(),
-  posActionName: "ok");
+  title: 'Title'.tr(),
+  posActionName: "ok".tr());
 
     print('The password provided is too weak.');
   } else if (e.code == 'email-already-in-use') {
@@ -165,8 +178,8 @@ class _LoginScreenState extends State<LoginScreen> {
   DialogUtiles.hideDialog(context);
 
   DialogUtiles.showMessage(context: context , message: "The account already exists for that email.".tr(), 
-  title: 'title'.tr(),
-  posActionName: "ok");
+  title: 'Title'.tr(),
+  posActionName: "ok".tr());
 
     print('The account already exists for that email.');
   }
@@ -175,8 +188,8 @@ class _LoginScreenState extends State<LoginScreen> {
   DialogUtiles.hideDialog(context);
 
   DialogUtiles.showMessage(context: context , message: e.toString(), 
-  title: 'title'.tr(),
-  posActionName: "ok");
+  title: 'Title'.tr(),
+  posActionName: "ok".tr());
 
   print(e);
 }

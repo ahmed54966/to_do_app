@@ -37,6 +37,7 @@
     "register successfull" : "تم التسجيل بنجاح",
     "The account already exists for that email." : "هذا البريد موجود بالفعل",
     "The password provided is too weak." : "كلمة السر ضعيفه جدا",
-    "login successfull" : "تم التسجيل بنجاح"
+    "login successfull" : "تم التسجيل بنجاح",
+    "ok" : "موافق"
 
 }

@@ -1,8 +1,46 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_app/auth/login/login_screen.dart';
+import 'package:to_do_app/auth/register/register_screen.dart';
 import 'package:to_do_app/home/home_screen.dart';
+import 'package:to_do_app/my_theme_data.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:to_do_app/providers/provider.dart';
+import 'package:to_do_app/providers/user_provider.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(const MyApp());
+
+void main() async {
+
+WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  await EasyLocalization.ensureInitialized();
+
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('ar')],
+      path: 'assets/translations', 
+      fallbackLocale: const Locale('en'), 
+      startLocale: const Locale('ar'),    
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => ListProviders(),),
+            ChangeNotifierProvider(create: (context) => AuthUserProvider(),)
+        ],
+        child: const MyApp()),
+        )
+        
+    );
+  
 }
 
 class MyApp extends StatelessWidget {
@@ -11,13 +49,25 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
 
-    initialRoute: '/',
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+
+    initialRoute: '/loginScreen',
   routes: {
     // When navigating to the "/" route, build the FirstScreen widget.
-    '/': (context) => HomeScreen(),
+    '/RegisterScreen': (context) => RegisterScreen(),
+    '/homeScreen': (context) => HomeScreen(),
+    '/loginScreen': (context) => LoginScreen(),
+
   },
+
+  debugShowCheckedModeBanner: false,
+  theme:MyThemeData.lightMode ,
+
     );
   }
 }

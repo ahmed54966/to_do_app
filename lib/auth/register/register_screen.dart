@@ -1,18 +1,29 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_app/app_colors.dart';
 import 'package:to_do_app/auth/custom_text_form_field.dart';
+import 'package:to_do_app/dialog_utilies.dart';
 
 // ignore: must_be_immutable
-class RegisterScreen extends StatelessWidget {
-  var formKey = GlobalKey<FormState>();
-  TextEditingController nameControler = TextEditingController();
-  TextEditingController emailControler = TextEditingController();
-  TextEditingController passwordControler = TextEditingController();
-    TextEditingController confirmPasswordControler = TextEditingController();
+class RegisterScreen extends StatefulWidget {
 
   RegisterScreen({super.key});
 
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  var formKey = GlobalKey<FormState>();
+
+  TextEditingController nameControler = TextEditingController();
+
+  TextEditingController emailControler = TextEditingController();
+
+  TextEditingController passwordControler = TextEditingController();
+
+    TextEditingController confirmPasswordControler = TextEditingController();
 
   // This widget is the root of your application.
   @override
@@ -123,10 +134,59 @@ class RegisterScreen extends StatelessWidget {
       ],
     );
   }
-  
-  void register() {
-    if (formKey.currentState?.validate() == true){
 
+  void register () async {
+    if (formKey.currentState?.validate() == true){
+      DialogUtiles.voidShowLoading(context : context , message: "loading".tr());
+    try {
+  final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    email: emailControler.text,
+    password: passwordControler.text,
+  );
+
+  DialogUtiles.hideDialog(context);
+
+  DialogUtiles.showMessage(context: context , message: "register successfull".tr(), 
+  title: 'title'.tr(),
+  posActionName: "ok",
+  posAction: (){
+      Navigator.pushNamed(context, '/homeScreen');
+  }
+  );
+
+
+
+  print(credential.user?.uid??"");
+} on FirebaseAuthException catch (e) {
+  if (e.code == 'weak-password') {
+    
+  DialogUtiles.hideDialog(context);
+
+  DialogUtiles.showMessage(context: context , message: "The password provided is too weak.".tr(), 
+  title: 'title'.tr(),
+  posActionName: "ok");
+
+    print('The password provided is too weak.');
+  } else if (e.code == 'email-already-in-use') {
+    
+  DialogUtiles.hideDialog(context);
+
+  DialogUtiles.showMessage(context: context , message: "The account already exists for that email.".tr(),
+  title: 'title'.tr(),
+  posActionName: "ok");
+
+    print('The account already exists for that email.');
+  }
+} catch (e) {
+  
+  DialogUtiles.hideDialog(context);
+
+  DialogUtiles.showMessage(context: context , message: e.toString(),
+  title: 'title'.tr(),
+  posActionName: "ok");
+
+  print(e);
+}
     }
   }
 }

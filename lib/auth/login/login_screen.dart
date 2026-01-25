@@ -1,18 +1,29 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:to_do_app/app_colors.dart';
 import 'package:to_do_app/auth/custom_text_form_field.dart';
+import 'package:to_do_app/dialog_utilies.dart';
 
 // ignore: must_be_immutable
-class LoginScreen extends StatelessWidget {
-  var formKey = GlobalKey<FormState>();
-  TextEditingController nameControler = TextEditingController();
-  TextEditingController emailControler = TextEditingController();
-  TextEditingController passwordControler = TextEditingController();
-    TextEditingController confirmPasswordControler = TextEditingController();
+class LoginScreen extends StatefulWidget {
 
   LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  var formKey = GlobalKey<FormState>();
+
+  TextEditingController nameControler = TextEditingController();
+
+  TextEditingController emailControler = TextEditingController();
+
+  TextEditingController passwordControler = TextEditingController();
+
+    TextEditingController confirmPasswordControler = TextEditingController();
 
   // This widget is the root of your application.
   @override
@@ -82,7 +93,7 @@ class LoginScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(onPressed: (){
-                    register();
+                    login();
                 },
 
                 style: ElevatedButton.styleFrom(
@@ -116,10 +127,59 @@ class LoginScreen extends StatelessWidget {
       ],
     );
   }
-  
-  void register() {
-    if (formKey.currentState?.validate() == true){
 
+  void login () async {
+    if (formKey.currentState?.validate() == true){
+      DialogUtiles.voidShowLoading(context : context , message: "loading".tr());
+    try {
+  final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    email: emailControler.text,
+    password: passwordControler.text,
+
+  );
+
+  
+  DialogUtiles.hideDialog(context);
+
+  DialogUtiles.showMessage(context: context , message: "login successfull".tr(),
+  title: 'title'.tr(),
+  posActionName: "ok",
+  posAction: (){
+      Navigator.pushNamed(context, '/homeScreen');}
+      );
+
+  print(credential.user?.uid??"");
+} on FirebaseAuthException catch (e) {
+  if (e.code == 'weak-password') {
+
+    
+  DialogUtiles.hideDialog(context);
+
+  DialogUtiles.showMessage(context: context , message: "The password provided is too weak.".tr(),
+  title: 'title'.tr(),
+  posActionName: "ok");
+
+    print('The password provided is too weak.');
+  } else if (e.code == 'email-already-in-use') {
+    
+  DialogUtiles.hideDialog(context);
+
+  DialogUtiles.showMessage(context: context , message: "The account already exists for that email.".tr(), 
+  title: 'title'.tr(),
+  posActionName: "ok");
+
+    print('The account already exists for that email.');
+  }
+} catch (e) {
+  
+  DialogUtiles.hideDialog(context);
+
+  DialogUtiles.showMessage(context: context , message: e.toString(), 
+  title: 'title'.tr(),
+  posActionName: "ok");
+
+  print(e);
+}
     }
   }
 }

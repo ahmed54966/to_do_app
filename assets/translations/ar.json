@@ -32,6 +32,11 @@
     "confirm password does not match password." : "تأكيد كلمة المرور غير مطابق لكلمة المرور",
     "login" : "تسجيل الدخول",
     "welcome_back" :"مرحبا بك مره اخرى",
-    "or create account" : "انشاء حساب"
+    "or create account" : "انشاء حساب",
+    "loading" : "جاري التحميل...",
+    "register successfull" : "تم التسجيل بنجاح",
+    "The account already exists for that email." : "هذا البريد موجود بالفعل",
+    "The password provided is too weak." : "كلمة السر ضعيفه جدا",
+    "login successfull" : "تم التسجيل بنجاح"
 
 }

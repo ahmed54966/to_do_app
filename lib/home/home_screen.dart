@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar:AppBar(
         toolbarHeight:MediaQuery.of(context).size.height*0.2 ,
-        title: Text("To Do List{${authProvider.currentUser!.name!}}".tr(),
+        title: Text("${context.tr("To Do List")} ${authProvider.currentUser!.name!}",
         style: Theme.of(context).textTheme.titleLarge,),
         actions: [
           IconButton(onPressed: (){

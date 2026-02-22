@@ -26,86 +26,97 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   Widget build(BuildContext context) {
     
     listProviders = Provider.of<ListProviders>(context);
-    return Container(
-      margin: EdgeInsets.all(12),
-      child: Column(
-        children: [
-          Text("Add new Task".tr(),
-          style: Theme.of(context).textTheme.titleMedium,
-          ),
-
-          Form(
-            key: formKey,
-            child:Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextFormField(
-                validator: (text){
-                  if(text ==null || text.isEmpty){
-                    return"Please Enter Task Title".tr();
-                  }
-                  return null ;
-                } ,
-                onChanged: (text){
-                  title = text;
-                },
-                decoration: InputDecoration(
-                  hintText: "Enter Task Title".tr(),
-                ),
-              ),
-
-              SizedBox(height: 10,),
-
-              TextFormField(
-                validator: (text){
-                  if(text ==null || text.isEmpty){
-                    return"Please Enter Task Description".tr();
-                  }
-                  return null ;
-                } ,
-                onChanged: (text) {
-                  description = text ;
-                },
-                decoration: InputDecoration(
-                  hintText: "Enter Task Description".tr(),
-                ),
-                maxLines: 4,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("Select Date".tr(),
-                textAlign: TextAlign.start,
-                style: Theme.of(context).textTheme.bodyLarge,),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextButton(
-                  onPressed: () {
-                    showCalendar();
-                  },
-                  child:Text("${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
-                  textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium),
-                ),
-              ),
-
-              ElevatedButton(onPressed: (){
-                addTask();
-              },
-              style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primaryColor,
-              foregroundColor: AppColors.whiteColor
-              ),
-              child: Text("Add".tr(),
-              style:  Theme.of(context).textTheme.titleLarge,
-              )
-              )
-
-            ],
-          ))
-        ],
+    return Padding(
+      padding: EdgeInsets.only(
+        top: 12,
+        left: 12,
+        right: 12,
+        bottom: MediaQuery.of(context).viewInsets.bottom + 12,
       ),
-    );
+      child: SingleChildScrollView(
+        
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text("Add new Task".tr(),
+              style: Theme.of(context).textTheme.titleMedium,
+              ),
+        
+              Form(
+                key: formKey,
+                child:Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  TextFormField(
+                    validator: (text){
+                      if(text ==null || text.isEmpty){
+                        return"Please Enter Task Title".tr();
+                      }
+                      return null ;
+                    } ,
+                    onChanged: (text){
+                      title = text;
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Enter Task Title".tr(),
+                    ),
+                  ),
+        
+                  SizedBox(height: 10,),
+        
+                  TextFormField(
+                    validator: (text){
+                      if(text ==null || text.isEmpty){
+                        return"Please Enter Task Description".tr();
+                      }
+                      return null ;
+                    } ,
+                    onChanged: (text) {
+                      description = text ;
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Enter Task Description".tr(),
+                    ),
+                    maxLines: 4,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("Select Date".tr(),
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyLarge,),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextButton(
+                      onPressed: () {
+                        showCalendar();
+                      },
+                      child:Text("${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
+                      textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium),
+                    ),
+                  ),
+        
+                  ElevatedButton(onPressed: (){
+                    addTask();
+                  },
+                  style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primaryColor,
+                  foregroundColor: AppColors.whiteColor
+                  ),
+                  child: Text("Add".tr(),
+                  style:  Theme.of(context).textTheme.titleLarge,
+                  )
+                  )
+        
+                ],
+              ))
+            ],
+          ),
+        ),
+      );
+    
   }
 
   void addTask() {

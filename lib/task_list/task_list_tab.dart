@@ -28,8 +28,8 @@ class _TaskListState extends State<TaskList> {
       listProvider.getAllTasksFromFireStore(authProvider.currentUser!.id!);
     }
     
-    return Expanded(
-      child: Column(
+    return 
+      Column(
         children: [
           EasyDateTimeLine(
           initialDate: listProvider.selectDate,
@@ -64,8 +64,8 @@ class _TaskListState extends State<TaskList> {
               ),
           )
         ],
-      ),
-    );
+      );
+    
   }
 
   

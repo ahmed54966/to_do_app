@@ -9,7 +9,7 @@ class CustomTextFormField extends StatelessWidget {
   TextInputType keyboardType;
   TextEditingController controller;
   bool showPassword;
-  CustomTextFormField({required this.labelTextName,
+  CustomTextFormField({super.key, required this.labelTextName,
   required this.validator,
   required this.controller,
   this.keyboardType = TextInputType.text,

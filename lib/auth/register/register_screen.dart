@@ -151,7 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
 
 ///added to firestore
-  MyUser myUser = MyUser(id:credential.user?.uid ,
+  MyUser myUser = MyUser(id:credential.user?.uid ??"" ,
   email: emailControler.text,
   name: nameControler.text);
   await FirebaseUltiles.addUserToFireStore(myUser);

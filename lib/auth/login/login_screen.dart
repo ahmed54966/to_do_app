@@ -6,13 +6,12 @@ import 'package:to_do_app/app_colors.dart';
 import 'package:to_do_app/auth/custom_text_form_field.dart';
 import 'package:to_do_app/dialog_utilies.dart';
 import 'package:to_do_app/firebase_utiles.dart';
-import 'package:to_do_app/model/my_user.dart';
 import 'package:to_do_app/providers/user_provider.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatefulWidget {
 
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -21,13 +20,11 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   var formKey = GlobalKey<FormState>();
 
-  TextEditingController nameControler = TextEditingController();
 
   TextEditingController emailControler = TextEditingController();
 
   TextEditingController passwordControler = TextEditingController();
 
-    TextEditingController confirmPasswordControler = TextEditingController();
 
   // This widget is the root of your application.
   @override
@@ -136,11 +133,12 @@ class _LoginScreenState extends State<LoginScreen> {
     if (formKey.currentState?.validate() == true){
       DialogUtiles.voidShowLoading(context : context , message: "loading".tr());
     try {
-  final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
     email: emailControler.text,
     password: passwordControler.text,
 
   );
+
 
   
   var user = await FirebaseUltiles.readUserFromFireStore(credential.user?.uid??"");
@@ -149,11 +147,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   ///authprovider
+  // ignore: use_build_context_synchronously
   var authProvider = Provider.of<AuthUserProvider>(context,listen: false);
   authProvider.updateUser(user);
   
+  // ignore: use_build_context_synchronously
   DialogUtiles.hideDialog(context);
 
+  // ignore: use_build_context_synchronously
   DialogUtiles.showMessage(context: context , message: "login successfull".tr(),
   title: 'Title'.tr(),
   posActionName: "ok".tr(),
@@ -163,25 +164,25 @@ class _LoginScreenState extends State<LoginScreen> {
 
   print(credential.user?.uid??"");
 } on FirebaseAuthException catch (e) {
-  if (e.code == 'weak-password') {
+  if (e.code == 'invalid-credential') {
 
     
   DialogUtiles.hideDialog(context);
 
-  DialogUtiles.showMessage(context: context , message: "The password provided is too weak.".tr(),
+  DialogUtiles.showMessage(context: context , message: "user not found".tr(),
   title: 'Title'.tr(),
   posActionName: "ok".tr());
 
     print('The password provided is too weak.');
-  } else if (e.code == 'email-already-in-use') {
+  } else if (e.code == 'wrong-password') {
     
   DialogUtiles.hideDialog(context);
 
-  DialogUtiles.showMessage(context: context , message: "The account already exists for that email.".tr(), 
+  DialogUtiles.showMessage(context: context , message: "wrong password".tr(), 
   title: 'Title'.tr(),
   posActionName: "ok".tr());
 
-    print('The account already exists for that email.');
+    print('wrong password');
   }
 } catch (e) {
   

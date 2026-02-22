@@ -28,15 +28,12 @@ static CollectionReference<MyUser> getUsersCollection(){
   return FirebaseFirestore.instance.collection(MyUser.collectionName).
 withConverter<MyUser>(
   fromFirestore:(snapshot , options) =>MyUser.fromFireStore(snapshot.data()!) , 
-  toFirestore: (MyUser,options) => MyUser.toFireStore()
+  toFirestore: (myUser,options) => myUser.toFireStore()
   );
 }
 
 static Future<void> addUserToFireStore (MyUser myUser){
-var userCollection = getUsersCollection();
-DocumentReference<MyUser> userDocRef = userCollection.doc();
-myUser.id = userDocRef.id;
-return userDocRef.set(myUser);
+  return getUsersCollection().doc(myUser.id).set(myUser);
 }
 
 static Future<MyUser?> readUserFromFireStore (String uId)async{
